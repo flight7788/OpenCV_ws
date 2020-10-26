@@ -20,7 +20,7 @@ public:
 	~pro4(){}
 	void run();
 	void catchLaneLines(Mat src, Mat& dst);
-	void perspective_transform(Mat src, Mat& dst);
+	void find_corner(Mat src, vector<Point>& dst);
 private:
 
 };

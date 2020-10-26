@@ -1,15 +1,5 @@
 ﻿  pro4.cpp
 C:\OpenCV4\include\opencv2\calib3d.hpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
-D:\OpenCV_ws\Project3\Project3\pro4.cpp(19,33): warning C4244: 'argument': conversion from '_Tp' to 'int', possible loss of data
-          with
-          [
-              _Tp=float
-          ]
-D:\OpenCV_ws\Project3\Project3\pro4.cpp(19,23): warning C4244: 'argument': conversion from '_Tp' to 'int', possible loss of data
-          with
-          [
-              _Tp=float
-          ]
 D:\OpenCV_ws\Project3\Project3\pro4.cpp(20,33): warning C4244: 'argument': conversion from '_Tp' to 'int', possible loss of data
           with
           [
@@ -30,5 +20,45 @@ D:\OpenCV_ws\Project3\Project3\pro4.cpp(21,23): warning C4244: 'argument': conve
           [
               _Tp=float
           ]
-D:\OpenCV_ws\Project3\Project3\pro4.cpp(47,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(22,33): warning C4244: 'argument': conversion from '_Tp' to 'int', possible loss of data
+          with
+          [
+              _Tp=float
+          ]
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(22,23): warning C4244: 'argument': conversion from '_Tp' to 'int', possible loss of data
+          with
+          [
+              _Tp=float
+          ]
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(127,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(157,38): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=int
+          ]
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(157,31): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=int
+          ]
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(158,46): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=int
+          ]
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(158,39): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=int
+          ]
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(159,34): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=int
+          ]
+D:\OpenCV_ws\Project3\Project3\pro4.cpp(159,27): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=int
+          ]
   Project3.vcxproj -> D:\OpenCV_ws\Project3\x64\Debug\Project3.exe
