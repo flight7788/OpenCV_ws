@@ -16,7 +16,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>資源檔</Filter>
+      <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="pro3.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="pro4.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pro3.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="pro4.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
