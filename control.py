@@ -94,24 +94,35 @@ def find_corner(src):
 
 @jit
 def compute_slope(pt1, pt2):
-	return (pt2[1]-pt1[1])/(pt2[0]-pt1[0])
+	if((pt2[0]==pt1[0])):
+		return None
+	else:
+		return (pt2[1]-pt1[1])/(pt2[0]-pt1[0])
 
 @jit
 def judge_car_dir(slope):
-	if(slope > 0):
+	if(slope==None):
+		return "None"
+	elif(slope < 0):
 		return "left"
 	else:
 		return "right"
 
 def regulate(car_dir, slope):
-	slope = abs(slope)
 	
-	if(car_dir == "left"):
-		left_speed = 0.4 + slope / 2
-		right_speed = 0.4
+	
+	if(car_dir == "None"):
+		left_speed = 0.0
+		right_speed = 0.0
 	else:
-		left_speed = 0.4 
-		right_speed = 0.4 + slope / 2
+		slope = abs(slope)
+		if(car_dir == "left"):
+			left_speed = 0.3 + slope / 2
+			right_speed = 0.3
+		else:
+			left_speed = 0.3 
+			right_speed = 0.3 + slope / 2
+
 	return left_speed, right_speed
 
 if __name__ == '__main__':
