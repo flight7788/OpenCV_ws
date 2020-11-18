@@ -35,18 +35,20 @@ def catch_lane_line(src):
 @jit
 def find_corner(src):
 	height, width = src.shape[:2]
+	half_height = int(height/2)
+	half_width = int(width / 2)
 	p0_x = 0
-	p0_y = 0
-	p1_x = 0
-	p1_y = 0
-	p2_x = 0
-	p2_y = 0
+	p0_y = height - 1
+	p1_x = width - 1
+	p1_y = height - 1
+	p2_x = width - 1
+	p2_y = half_height
 	p3_x = 0
 	p3_y = 0
 
 	flag = False
-	for y in range(height - 1, int(height/2), -1):
-		for x in range(0, int(width / 2)):
+	for y in range(height - 1, half_height, -1):
+		for x in range(0, half_width):
 			if(src[y,x] >= 255):
 				p0_x = x
 				p0_y = y
@@ -56,8 +58,8 @@ def find_corner(src):
 			break
 
 	flag = False
-	for y in range(height - 1, int(height/2), -1):
-		for x in range(width - 1, int(width / 2), -1):
+	for y in range(height - 1, half_height, -1):
+		for x in range(width - 1, half_width, -1):
 			if(src[y,x] >= 255):
 				p1_x = x
 				p1_y = y
@@ -67,8 +69,8 @@ def find_corner(src):
 			break
 
 	flag = False
-	for y in range(int(height/2), height):
-		for x in range(width - 1, int(width / 2), -1):
+	for y in range(half_height, height):
+		for x in range(width - 1, half_width, -1):
 			if(src[y,x] >= 255):
 				p2_x = x
 				p2_y = y
@@ -78,8 +80,8 @@ def find_corner(src):
 			break
 
 	flag = False
-	for y in range(int(height/2), height):
-		for x in range(0, int(width / 2)):
+	for y in range(half_height, height):
+		for x in range(0, half_width):
 			if(src[y,x] >= 255):
 				p3_x = x
 				p3_y = y
@@ -91,38 +93,22 @@ def find_corner(src):
 	points = np.array([[p0_x, p0_y], [p1_x, p1_y], [p2_x, p2_y], [p3_x, p3_y]])	
 	return points
 
+@jit
+def compute_mid_offset(pt1,pt2):
+	mid = (pt1[0]+pt2[0])/2
+	return mid, mid-390
 
 @jit
-def compute_slope(pt1, pt2):
-	if((pt2[0]==pt1[0])):
-		return None
-	else:
-		return (pt2[1]-pt1[1])/(pt2[0]-pt1[0])
-
-@jit
-def judge_car_dir(slope):
-	if(slope==None):
-		return "None"
-	elif(slope < 0):
-		return "left"
-	else:
-		return "right"
-
-def regulate(car_dir, slope):
-	
-	
-	if(car_dir == "None"):
-		left_speed = 0.0
-		right_speed = 0.0
-	else:
-		slope = abs(slope)
-		if(car_dir == "left"):
-			left_speed = 0.3 + slope / 2
-			right_speed = 0.3
-		else:
-			left_speed = 0.3 
-			right_speed = 0.3 + slope / 2
-
+def fix(offset):
+	left_speed = 0.3
+	right_speed = 0.3
+	if(offset>30):
+		diff = (offset-30)/30*0.04
+		left_speed = left_speed+0.04 if diff > 0.04 else left_speed + diff
+	if(offset<-30):
+		offset =abs(offset)
+		diff = (offset-30)/30*0.05
+		right_speed = right_speed + 0.05 if diff > 0.05 else right_speed + diff
 	return left_speed, right_speed
 
 if __name__ == '__main__':

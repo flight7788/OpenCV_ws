@@ -1,4 +1,4 @@
-import pynpput.keyboard import key, Listener
+from pynput.keyboard import Listener
 from jetbot import Robot
 
 robot = Robot() 
@@ -31,6 +31,7 @@ def on_press(key):
 
 def on_release(key):
 	stop()
-
-with Listener(on_press=on_press, on_release=on_release) as listener:
-	listener.join()
+	
+if __name__ == '__main__':
+	with Listener(on_press=on_press, on_release=on_release) as listener:
+		listener.join()

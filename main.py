@@ -2,15 +2,19 @@ from jetbot import Robot
 from jetbot import Camera
 import traitlets
 import cv2
-import control
 
+from control import catch_lane_line
+from control import find_corner
+from control import compute_mid_offset
+from control import fix
+
+from numba import jit
 robot = Robot()
 
-
-
-if __name__ == '__main__':
-	width = 224
-	height = 224
+@jit
+def main():
+	width = 640
+	height = 480
 	fps = 21
 	capture_width = 3280
 	capture_height = 2464
@@ -19,31 +23,35 @@ if __name__ == '__main__':
 				capture_width, capture_height, fps, width, height)
 
 	cap = cv2.VideoCapture(str, cv2.CAP_GSTREAMER)
-
-	while cap.isOpened():
+	
+	left_speed, right_speed = 0.28,0.28
+	
+	while True:
 		ret, frame = cap.read()
-		frame = cv2.resize(frame,(640,480),interpolation=cv2.INTER_CUBIC)
 		if not ret:
 			print("Can't receive frame (stream end?). Exiting ...")
 			break
 
-		lane_line = control.catch_lane_line(frame)
-		points = control.find_corner(lane_line)
-		slope = control.compute_slope(points[0], points[1])
-		print(slope)
-		car_dir = control.judge_car_dir(slope)
-		left_speed, right_speed = control.regulate(car_dir, slope)
-		print(left_speed," ",right_speed)
+		lane_line = catch_lane_line(frame)
+		points = find_corner(lane_line)
+		mid, offset= compute_mid_offset(points[3],points[2])
+
+		left_speed, right_speed=fix(offset)
+		
 
 		robot.set_motors(left_speed, right_speed)
+
 		blue_color = (0, 255, 0)
 		cv2.fillPoly(frame, [points], blue_color)
-
-
+		
+		print(left_speed,right_speed)
 		cv2.imshow('frame', frame)
 		cv2.imshow('lane_line', lane_line)
-		if cv2.waitKey(1) == ord('q'):
+		if cv2.waitKey(1) >= ord('q'):
 			break
 
 	cap.release()
 	cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+	main()
